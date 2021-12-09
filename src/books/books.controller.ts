@@ -1,3 +1,4 @@
+import { Prisma } from '.prisma/client';
 import {
   Controller,
   Get,
@@ -16,7 +17,7 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
+  create(@Body() createBookDto: Prisma.BookUncheckedCreateInput) {
     return this.booksService.create(createBookDto);
   }
 

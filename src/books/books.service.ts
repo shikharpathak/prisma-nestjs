@@ -6,14 +6,22 @@ import { PrismaService } from 'src/prisma.service';
 export class BooksService {
   constructor(private prisma: PrismaService) {}
 
-  create(createBookDto: Prisma.BookCreateInput) {
+  create(createBookDto: Prisma.BookUncheckedCreateInput) {
     return this.prisma.book.create({
       data: createBookDto,
     });
   }
 
   findAll() {
-    return this.prisma.book.findMany();
+    return this.prisma.book.findMany({
+      include: {
+        author: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
   }
 
   findOne(bookWhereUniqueInput: Prisma.BookWhereUniqueInput) {

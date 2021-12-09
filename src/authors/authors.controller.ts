@@ -1,3 +1,4 @@
+import { Prisma } from '.prisma/client';
 import {
   Controller,
   Get,
@@ -16,7 +17,7 @@ export class AuthorsController {
   constructor(private readonly authorsService: AuthorsService) {}
 
   @Post()
-  create(@Body() createAuthorDto: CreateAuthorDto) {
+  create(@Body() createAuthorDto: Prisma.AuthorCreateInput) {
     return this.authorsService.create(createAuthorDto);
   }
 
